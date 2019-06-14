@@ -63,8 +63,8 @@
         button.tag = 1000 + index;
         [containView addSubview:button];
         button.frame = CGRectMake(buttonWid * index, 70, buttonWid, 54);
-        
-        
+        button.backgroundColor = [self p_buttonColor:index];
+        [button setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
     }
     
     return containView;
@@ -79,6 +79,7 @@
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 282, 70)];
         titleLabel.font = [UIFont systemFontOfSize:19];
         titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.backgroundColor = [UIColor greenColor];
         _titleLabel = titleLabel;
     }
     return _titleLabel;
@@ -100,7 +101,29 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
     
     return button;
+}
+
+- (UIColor *)p_buttonColor:(NSInteger)index {
+    
+    UIColor *color;
+    index = index % 3;
+    switch (index) {
+        case 0:
+            color = [UIColor yellowColor];
+            break;
+        case 1:
+            color = [UIColor cyanColor];
+            break;
+        case 2:
+            color = [UIColor orangeColor];
+            break;
+        default:
+            color = [UIColor cyanColor];
+            break;
+    }
+    return color;
 }
 @end

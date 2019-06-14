@@ -21,17 +21,21 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 200, 50)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 250, 50)];
     [button setTitle:@"默认alert" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(alertAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
-    button.backgroundColor = [UIColor greenColor];
+    button.backgroundColor = [UIColor blackColor];
+    button.layer.cornerRadius = 5;
+    button.layer.masksToBounds = YES;
     
-    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(100, 250, 200, 50)];
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(50, 180, 250, 50)];
     [button1 setTitle:@"默认actionSheet" forState:UIControlStateNormal];
     [button1 addTarget:self action:@selector(actionSheetAction) forControlEvents:UIControlEventTouchUpInside];
     button1.backgroundColor = [UIColor purpleColor];
     [self.view addSubview:button1];
+    button1.layer.cornerRadius = 5;
+    button1.layer.masksToBounds = YES;
 }
 
 
@@ -61,6 +65,7 @@
     tableView.delegate = self;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     tableView.backgroundColor = [UIColor yellowColor];
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     
     LEOAlertView *alertView = [[LEOAlertView alloc] init];
@@ -88,6 +93,7 @@
     cell.textLabel.text = [NSString stringWithFormat:@"第%ld个选项", indexPath.row];
     cell.detailTextLabel.text = @"demo";
     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.backgroundColor = [self p_cellColor:indexPath.row];
     return cell;
 }
 
@@ -100,5 +106,27 @@
 }
 
 
+- (UIColor *)p_cellColor:(NSInteger)index {
+    
+    UIColor *color;
+    switch (index) {
+        case 0:
+            color = [UIColor yellowColor];
+            break;
+        case 1:
+            color = [UIColor whiteColor];
+            break;
+        case 2:
+            color = [UIColor greenColor];
+            break;
+        case 3:
+            color = [UIColor orangeColor];
+            break;
+        default:
+            color = [UIColor cyanColor];
+            break;
+    }
+    return color;
+}
 
 @end
