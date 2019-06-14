@@ -218,7 +218,7 @@
 
 - (void)p_addRoundingCorners {
     
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:_contentView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     shapeLayer.frame = _contentView.bounds;
     shapeLayer.path = path.CGPath;
