@@ -7,10 +7,10 @@
 //
 
 #import "ViewController.h"
-#import "LEOAlertView/LEOAlertView.h"
+#import "LEOAlertView.h"
 #import "LEODemoAlertView.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate , UITableViewDataSource>
 
 @end
 
@@ -53,16 +53,52 @@
 
 - (void)actionSheetAction {
     
-    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, [UIScreen mainScreen].bounds.size.width - 20, 200)];
     contentView.backgroundColor = [UIColor yellowColor];
     
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    tableView.backgroundColor = [UIColor yellowColor];
+
+    
     LEOAlertView *alertView = [[LEOAlertView alloc] init];
-    alertView.contentView = contentView;
+    alertView.contentView = tableView;
     alertView.type = LEOAlertViewTypeActionSheet;
     alertView.clickBgHidden = YES;
     
     [alertView show];
 }
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 4;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 50;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"第%ld个选项", indexPath.row];
+    cell.detailTextLabel.text = @"demo";
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    LEOAlertView *alert = (LEODemoAlertView *)tableView.superview;
+    [alert dismiss];
+}
+
 
 
 @end
